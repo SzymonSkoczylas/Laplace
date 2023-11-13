@@ -1,0 +1,4 @@
+﻿  dllmain.cpp
+C:\Users\achim\Desktop\Laplace\CppDLL\dllmain.cpp(29,15): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+     Creating library C:\Users\achim\Desktop\Laplace\x64\Debug\CppDLL.lib and object C:\Users\achim\Desktop\Laplace\x64\Debug\CppDLL.exp
+  CppDLL.vcxproj -> C:\Users\achim\Desktop\Laplace\x64\Debug\CppDLL.dll

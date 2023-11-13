@@ -1,0 +1,16 @@
+C:\Users\achim\Desktop\Laplace\Laplace\bin\Debug\net6.0-windows\Laplace.exe
+C:\Users\achim\Desktop\Laplace\Laplace\bin\Debug\net6.0-windows\Laplace.deps.json
+C:\Users\achim\Desktop\Laplace\Laplace\bin\Debug\net6.0-windows\Laplace.runtimeconfig.json
+C:\Users\achim\Desktop\Laplace\Laplace\bin\Debug\net6.0-windows\Laplace.dll
+C:\Users\achim\Desktop\Laplace\Laplace\bin\Debug\net6.0-windows\Laplace.pdb
+C:\Users\achim\Desktop\Laplace\Laplace\obj\Debug\net6.0-windows\Laplace.Form1.resources
+C:\Users\achim\Desktop\Laplace\Laplace\obj\Debug\net6.0-windows\Laplace.csproj.GenerateResource.cache
+C:\Users\achim\Desktop\Laplace\Laplace\obj\Debug\net6.0-windows\Laplace.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\achim\Desktop\Laplace\Laplace\obj\Debug\net6.0-windows\Laplace.AssemblyInfoInputs.cache
+C:\Users\achim\Desktop\Laplace\Laplace\obj\Debug\net6.0-windows\Laplace.AssemblyInfo.cs
+C:\Users\achim\Desktop\Laplace\Laplace\obj\Debug\net6.0-windows\Laplace.csproj.CoreCompileInputs.cache
+C:\Users\achim\Desktop\Laplace\Laplace\obj\Debug\net6.0-windows\Laplace.dll
+C:\Users\achim\Desktop\Laplace\Laplace\obj\Debug\net6.0-windows\refint\Laplace.dll
+C:\Users\achim\Desktop\Laplace\Laplace\obj\Debug\net6.0-windows\Laplace.pdb
+C:\Users\achim\Desktop\Laplace\Laplace\obj\Debug\net6.0-windows\Laplace.genruntimeconfig.cache
+C:\Users\achim\Desktop\Laplace\Laplace\obj\Debug\net6.0-windows\ref\Laplace.dll
