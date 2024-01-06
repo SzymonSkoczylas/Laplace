@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\achim\\Desktop\\Laplace\\Laplace\\Laplace.csproj",
+      "projectUniqueName": "C:\\Users\\achim\\Desktop\\x\\Laplace\\Laplace\\Laplace.csproj",
       "projectName": "Laplace",
-      "projectPath": "C:\\Users\\achim\\Desktop\\Laplace\\Laplace\\Laplace.csproj",
+      "projectPath": "C:\\Users\\achim\\Desktop\\x\\Laplace\\Laplace\\Laplace.csproj",
       "packagesPath": "C:\\Users\\achim\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\achim\\Desktop\\Laplace\\Laplace\\obj\\",
+      "outputPath": "C:\\Users\\achim\\Desktop\\x\\Laplace\\Laplace\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\achim\\AppData\\Roaming\\NuGet\\NuGet.Config",

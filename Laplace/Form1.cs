@@ -95,7 +95,7 @@ namespace Laplace
                 unsafe
                 {
                     // Dll z Asemblera
-                    [DllImport(@"C:\Users\achim\Desktop\Laplace\x64\Debug\AsmDLL.dll")]
+                    [DllImport(@"C:\Users\achim\Desktop\x\Laplace\x64\Debug\AsmDLL.dll")]
                     static extern int BitmapProc(byte* input);
                     int width = image.Width;
                     int height = image.Height;
@@ -156,8 +156,8 @@ namespace Laplace
                 unsafe
                 {
                     // Dll z Asemblera
-                    [DllImport(@"C:\Users\achim\Desktop\Laplace\x64\Debug\CppDLL.dll")]
-                    static extern int ImageToBlack(byte* start, byte* end);
+                    [DllImport(@"C:\Users\achim\Desktop\x\Laplace\x64\Debug\CppDLL.dll")]
+                    static extern int processImage(int width, int height, byte* start);
                     int width = image.Width;
                     int height = image.Height;
                     BitmapData bitmapData = image.LockBits(new Rectangle(0, 0, width, height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
@@ -169,14 +169,15 @@ namespace Laplace
                         Stopwatch stopwatch = new Stopwatch();
                         byte* ptr = (byte*)bitmapData.Scan0;
                         stopwatch.Start();
-                        Parallel.For(0, numThreads, i_thread =>
-                        {
-                            int start = i_thread * (height / numThreads);
-                            int end = (i_thread + 1) * (height / numThreads);
-                            if (i_thread == numThreads - 1)
-                                end = height;
-                            ImageToBlack(ptr + start * width * bytesPerPixel, ptr + end * width * bytesPerPixel);
-                        });
+                        //Parallel.For(0, numThreads, i_thread =>
+                        //{
+                           // int start = i_thread * (height / numThreads);
+                           // int end = (i_thread + 1) * (height / numThreads);
+                          //  if (i_thread == numThreads - 1)
+                         //       end = height;
+                        //    processImage(width, height, ptr + start * width * bytesPerPixel);
+                       // });
+                       processImage(width, height, ptr);
                         stopwatch.Stop();
                         long elapsed_time = stopwatch.ElapsedMilliseconds;
                         Console.WriteLine("Elapsed time: {0} ms", elapsed_time);
