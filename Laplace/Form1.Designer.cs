@@ -40,7 +40,7 @@
             button1.TabIndex = 0;
             button1.Text = "asm";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            button1.Click += async (sender, e) => await button1_ClickAsync(sender, e);
             // 
             // button2
             // 
@@ -50,7 +50,7 @@
             button2.TabIndex = 1;
             button2.Text = "cpp";
             button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            button2.Click += async (sender, e) => await button2_ClickAsync(sender, e);
             // 
             // Form1
             // 

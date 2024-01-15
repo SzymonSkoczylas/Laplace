@@ -1,5 +1,20 @@
 ﻿  Assembling AsmAlgorithm.asm...
-AsmAlgorithm.asm(12): error A2008: syntax error : pusha
-AsmAlgorithm.asm(16): error A2008: syntax error : popa
-AsmAlgorithm.asm(14): error A2206: missing operator in expression
+AsmAlgorithm.asm(106): error A2229: cannot use labels and 32-bit addressing in the same expression
+AsmAlgorithm.asm(108): error A2229: cannot use labels and 32-bit addressing in the same expression
+AsmAlgorithm.asm(110): error A2229: cannot use labels and 32-bit addressing in the same expression
+AsmAlgorithm.asm(134): error A2022: instruction operands must be the same size
+AsmAlgorithm.asm(135): error A2022: instruction operands must be the same size
+AsmAlgorithm.asm(138): error A2229: cannot use labels and 32-bit addressing in the same expression
+AsmAlgorithm.asm(139): error A2082: cannot mix 16- and 32-bit registers
+AsmAlgorithm.asm(160): error A2006: undefined symbol : rbc
+AsmAlgorithm.asm(181): error A2022: instruction operands must be the same size
+AsmAlgorithm.asm(182): error A2022: instruction operands must be the same size
+AsmAlgorithm.asm(185): error A2229: cannot use labels and 32-bit addressing in the same expression
+AsmAlgorithm.asm(186): error A2082: cannot mix 16- and 32-bit registers
+AsmAlgorithm.asm(207): error A2006: undefined symbol : rbc
+AsmAlgorithm.asm(228): error A2022: instruction operands must be the same size
+AsmAlgorithm.asm(229): error A2022: instruction operands must be the same size
+AsmAlgorithm.asm(232): error A2229: cannot use labels and 32-bit addressing in the same expression
+AsmAlgorithm.asm(233): error A2082: cannot mix 16- and 32-bit registers
+AsmAlgorithm.asm(254): error A2006: undefined symbol : rbc
 C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Microsoft\VC\v170\BuildCustomizations\masm.targets(70,5): error MSB3721: The command "ml64.exe /c /nologo /Zi /Fo"x64\Release\AsmAlgorithm.obj" /W3 /errorReport:prompt  /TaAsmAlgorithm.asm" exited with code 1.

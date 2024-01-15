@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Laplace")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+256f018397f29bb583a9eb5ce7e545b6413dc043")]
 [assembly: System.Reflection.AssemblyProductAttribute("Laplace")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Laplace")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

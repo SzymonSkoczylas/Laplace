@@ -1,2 +1,2 @@
 LIBRARY AsmAlgorithm
-EXPORTS BitmapProc
+EXPORTS ApplyFilterAsm

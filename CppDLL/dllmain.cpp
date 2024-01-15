@@ -1,114 +1,88 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "pch.h"
-#include <cmath>
 #include <algorithm>
-#include <iostream>
-#include <fstream>
-#define EXPORTED_METHOD extern "C" __declspec(dllexport)
 
-int myMax(int a, int b) {
-    return a > b ? a : b;
-}
-int myMin(int a, int b) {
-    return a < b ? a : b;
-}
-
-EXPORTED_METHOD
-int RetVal()
+unsigned char CalculateNewPixelValue(unsigned char* fragment, long* masks)
 {
-    return 20;
+    // Initialize pixel value
+    int value = 0;
+
+    // According to the algorithm formula, initially add components calculated based on the mask values and pixel values
+    for (int j = 0; j < 3; j++)
+        for (int i = 0; i < 3; i++)
+            value += fragment[i + j * 3] * masks[i + j * 3];
+
+    // In case the value goes beyond the boundaries (0-255), set it to the boundary value.
+    value = std::clamp<int>(value, 0, 255);
+
+    // Return the pixel value
+    return (unsigned char)value;
 }
 
-EXPORTED_METHOD
-void processImage(int imageWidth, int imageHeight, unsigned char* imageData) {
-    int numPixels = imageWidth * imageHeight;
-    int pixelSize = 3;
-    unsigned char* tempBuffer = new unsigned char[numPixels * pixelSize];
-    // Apply Laplacian filter to convert image to black
-    int laplacianKernel[3][3] = { {-1, 0, -1}, {0, 4, 0}, {-1, 0, -1} };
-    for (int i = 1; i < imageHeight - 1; i++) {
-        for (int j = 1; j < imageWidth - 1; j++) {
-            int pixelIndex = (i * imageWidth + j) * pixelSize;
-            int redIndex = pixelIndex;
-            int greenIndex = pixelIndex + 1;
-            int blueIndex = pixelIndex + 2;
+// Main function applying the LAPL1 filter.
+// Takes parameters:
+//   inputArrayPointer: Pointer to the input byte array (passed bitmap)
+//   outputArrayPointer: Pointer to the output array (where the filtered fragment will be saved)
+//   bitmapLength: The length of the bitmap
+//   bitmapWidth: The width of the bitmap
+//   startIndex: The starting index for filtering the fragment
+//   indicesToFilter: The number of indices to be filtered
+// The function filters the specified fragment and saves it to the output array.
+extern "C" __declspec(dllexport) void __stdcall ApplyFilterCpp(unsigned char* inputArrayPointer, unsigned char* outputArrayPointer, int bitmapLength,
+    int bitmapWidth, int startIndex, int indicesToFilter){
+    // Initialize masks with values from the Laplace LAPL1 filter
+    long* mask = new long[9];
+    // Mask
+    //  -1  0  -1
+    //   0  4   0
+    //  -1  0  -1
+    for (int i = 0; i < 9; i++)
+        if (i % 2 == 0) mask[i] = -1;
+        else mask[i] = 0;
+    mask[4] = 4;
 
-            int laplacianRed = 0;
-            int laplacianGreen = 0;
-            int laplacianBlue = 0;
-
-            for (int k = i - 1; k < i + 1; k++) {
-                for (int l = j - 1; l < j + 1; l++) {
-                    std::ofstream myfile("C:\\Users\\achim\\Desktop\\x\\debug.txt");
-                    int neighborIndex = ((k)*imageWidth + (l)) * pixelSize;
-                    laplacianRed += imageData[neighborIndex] * laplacianKernel[k - i + 1][l - j + 1];
-                    laplacianGreen += imageData[neighborIndex + 1] * laplacianKernel[k - i + 1][l - j + 1];
-                    laplacianBlue += imageData[neighborIndex + 2] * laplacianKernel[k - i + 1][l - j + 1];
-                    myfile << i << " " << j << "\t" << k << " " << l << "\t" << neighborIndex << "\t" << laplacianRed << "\t" << laplacianGreen << "\t" << laplacianBlue << "\n";
-                    myfile.close();
-                }
-            }
-            tempBuffer[redIndex] = (unsigned char)laplacianBlue;
-            tempBuffer[greenIndex] = (unsigned char)laplacianGreen;
-            tempBuffer[blueIndex] = (unsigned char)laplacianRed;
-        }
-    }
-    for (int i = 0; i < numPixels * pixelSize; i++) {
-        *(imageData + i) = tempBuffer[i];
-    }
-}
-
-EXPORTED_METHOD
-void ImageToBlack(unsigned char* imgStart, unsigned char* imgEnd, int width, int height)
-{
-    int kernel[3][3] = { {-1, 0, -1}, {0, 4, 0}, {-1, 0, -1} };
-    int kernelSize = 3;
-    int kernelRadius = kernelSize / 2;
-
-    unsigned char* p = imgStart;
-
-    // Create a temporary buffer to store the transformed image
-    unsigned char* tempBuffer = new unsigned char[width * height * 3];
-
-    // Apply the Laplace transformation to each pixel in the image
-    for (int y = 0; y < height; y++)
+    // Iterate through each index of the fragment to be filtered (in each iteration, operate on 3 indices for R, G, B)
+    unsigned char* r {};
+    unsigned char* g {};
+    unsigned char* b {};
+    for (int i = startIndex; i < startIndex + indicesToFilter; i += 3)
     {
-        for (int x = 0; x < width; x += 3)
-        {
-            if (imgStart != nullptr) {
-                // Calculate the Laplace value for this pixel
-                int laplaceR = 0, laplaceG = 0, laplaceB = 0;
-                for (int ky = 0; ky < kernelSize; ky++)
-                {
-                    for (int kx = 0; kx < kernelSize; kx++)
-                    {
-                        int px = x + (kx - kernelRadius) * 3;
-                        int py = y + ky - kernelRadius;
-                        if (px < 0 || px >= width || py < 0 || py >= height)
-                        {
-                            continue;
-                        }
+        // Skip indices on the edges of the bitmap - do not filter them according to the algorithm.
+        if ((i < bitmapWidth) || (i % bitmapWidth == 0) || (i >= bitmapLength - bitmapWidth) || ((i + 2 + 1) % bitmapWidth == 0))
+            continue;
 
-                        int kernelValue = kernel[ky][kx];
-                            laplaceR += kernelValue * imgStart[py * width + px];
-                            laplaceG += kernelValue * imgStart[py * width + px + 1];
-                            laplaceB += kernelValue * imgStart[py * width + px + 2];
-                    }
-                }
+        // Initialize arrays for values of R, G, B from the 3x3 area.
+        r = new unsigned char[9];
+        g = new unsigned char[9];
+        b = new unsigned char[9];
 
-                // Set the pixel value in the temporary buffer
-                tempBuffer[y * width + x] = (unsigned char)myMax(0, myMin(255, laplaceR));
-                tempBuffer[y * width + x + 1] = (unsigned char)myMax(0, myMin(255, laplaceG));
-                tempBuffer[y * width + x + 2] = (unsigned char)myMax(0, myMin(255, laplaceB));
+        // Read values from the 3x3 area around the current pixel and save them to the r, g, b arrays.
+        int pixelIndex{};
+        int rgbIndex{};
+        for (int y = 0; y < 3; y++)
+            for (int x = 0; x < 3; x++)
+            {
+                pixelIndex = i + (bitmapWidth * (y - 1) + (x - 1) * 3);
+                rgbIndex = x * 3 + y;
+                r[rgbIndex] = inputArrayPointer[pixelIndex++];
+                g[rgbIndex] = inputArrayPointer[pixelIndex++];
+                b[rgbIndex] = inputArrayPointer[pixelIndex];
             }
-        }
+
+        // Save the values of the filtered pixels (for R, G, B) to the output array.
+        int outputPixelIndex = i - startIndex;
+        outputArrayPointer[outputPixelIndex++] = CalculateNewPixelValue(r, mask);
+        outputArrayPointer[outputPixelIndex++] = CalculateNewPixelValue(g, mask);
+        outputArrayPointer[outputPixelIndex] = CalculateNewPixelValue(b, mask);
+
+        // Delete masks to prevent memory leaks.
+        delete[] r;
+        delete[] g;
+        delete[] b;
     }
 
-    // Copy the transformed image back to the original buffer
-    memcpy(imgStart, tempBuffer, width * height * 3);
-
-    // Free the temporary buffer
-    delete[] tempBuffer;
+    // Delete masks to prevent memory leaks.
+    delete[] mask;
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule,

@@ -1,1 +1,7 @@
-﻿  AsmDLL.vcxproj -> C:\Users\achim\Desktop\x\Laplace\x64\Debug\AsmDLL.dll
+﻿  Assembling AsmAlgorithm.asm...
+AsmAlgorithm.asm(19): warning A6004: procedure argument or local not referenced : hInstDLL
+AsmAlgorithm.asm(19): warning A6004: procedure argument or local not referenced : reason
+AsmAlgorithm.asm(19): warning A6004: procedure argument or local not referenced : reserved1
+     Creating library C:\Users\Achim\Desktop\studia\Laplace\x64\Debug\AsmDLL.lib and object C:\Users\Achim\Desktop\studia\Laplace\x64\Debug\AsmDLL.exp
+AsmDLL.exp : warning LNK4070: /OUT:AsmAlgorithm.dll directive in .EXP differs from output filename 'C:\Users\Achim\Desktop\studia\Laplace\x64\Debug\AsmDLL.dll'; ignoring directive
+  AsmDLL.vcxproj -> C:\Users\Achim\Desktop\studia\Laplace\x64\Debug\AsmDLL.dll
